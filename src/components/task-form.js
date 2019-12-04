@@ -1,4 +1,4 @@
-import {Colors, Days, MonthNames} from '../const.js';
+import {colorsMockData, daysMockData, monthNames} from '../const.js';
 import {formatTime} from '../utils.js';
 
 const createColorsMarkup = (colors, currentColor) => {
@@ -76,7 +76,7 @@ const createEditTaskTemplate = (task) => {
   const isExpired = dueDate instanceof Date && dueDate < Date.now();
   const isDateShowing = !!dueDate;
 
-  const date = isDateShowing ? `${dueDate.getDate()} ${MonthNames[dueDate.getMonth()]}` : ``;
+  const date = isDateShowing ? `${dueDate.getDate()} ${monthNames[dueDate.getMonth()]}` : ``;
   const time = isDateShowing ? formatTime(dueDate) : ``;
 
   const isRepeatingTask = Object.values(repeatingDays).some(Boolean);
@@ -84,8 +84,8 @@ const createEditTaskTemplate = (task) => {
   const deadlineClass = isExpired ? `card--deadline` : ``;
 
   const tagsMarkup = createHashtags(tags);
-  const colorsMarkup = createColorsMarkup(Colors, color);
-  const repeatingDaysMarkup = createRepeatingDaysMarkup(Days, repeatingDays);
+  const colorsMarkup = createColorsMarkup(colorsMockData, color);
+  const repeatingDaysMarkup = createRepeatingDaysMarkup(daysMockData, repeatingDays);
 
   return (
     `<article class="card card--edit card--${color} ${repeatClass} ${deadlineClass}">

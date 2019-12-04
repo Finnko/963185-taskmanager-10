@@ -1,12 +1,10 @@
-const filterNames = [
-  `all`, `overdue`, `today`, `favorites`, `repeating`, `tags`, `archive`
-];
+import {filtersData} from "./task";
 
 const generateFilters = () => {
-  return filterNames.map((item) => {
+  return Object.keys(filtersData).map((key) => {
     return {
-      name: item,
-      count: Math.floor(Math.random() * 10),
+      title: key,
+      count: filtersData[key],
     };
   });
 };

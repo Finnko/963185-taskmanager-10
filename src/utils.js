@@ -3,13 +3,14 @@ const getRandomInRange = function (min, max) {
 };
 
 const getRandomArrayItem = (array) => {
-  const randomIndex = getRandomInRange(0, array.length);
+  const randomIndex = getRandomInRange(0, array.length - 1);
 
   return array[randomIndex];
 };
 
 const getRandomDate = () => {
   const targetDate = new Date();
+
   const sign = Math.random() > 0.5 ? 1 : -1;
   const diffValue = sign * getRandomInRange(0, 7);
 

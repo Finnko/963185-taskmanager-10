@@ -1,8 +1,8 @@
-const Colors = [`black`, `yellow`, `blue`, `green`, `pink`];
+const colorsMockData = [`black`, `yellow`, `blue`, `green`, `pink`];
 
-const Days = [`mo`, `tu`, `we`, `th`, `fr`, `sa`, `su`];
+const daysMockData = [`mo`, `tu`, `we`, `th`, `fr`, `sa`, `su`];
 
-const MonthNames = [
+const monthNames = [
   `January`,
   `February`,
   `March`,
@@ -17,4 +17,4 @@ const MonthNames = [
   `December`,
 ];
 
-export {Colors, Days, MonthNames};
+export {colorsMockData, daysMockData, monthNames};
