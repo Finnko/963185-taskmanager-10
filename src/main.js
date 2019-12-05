@@ -4,9 +4,8 @@ import {createBoardTemplate} from "./components/board";
 import {createTaskTemplate} from "./components/task";
 import {createEditTaskTemplate} from "./components/task-form";
 import {createButtonTemplate} from "./components/button-load-more";
-import {tasksData} from "./mocks/task";
 import {generateFilters} from "./mocks/filter";
-
+import {tasksData} from "./mocks/task";
 
 const SHOWING_TASKS_COUNT_ON_START = 8;
 const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
@@ -25,7 +24,6 @@ renderComponent(siteMainElement, createFilterTemplate(filters));
 renderComponent(siteMainElement, createBoardTemplate());
 
 const taskListElement = siteMainElement.querySelector(`.board__tasks`);
-
 
 renderComponent(taskListElement, createEditTaskTemplate(tasksData[0]));
 let showingTasksCount = SHOWING_TASKS_COUNT_ON_START;

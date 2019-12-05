@@ -19,16 +19,6 @@ const defaultRepeatingDays = {
   'su': false,
 };
 
-const defaultFiltersData = {
-  'all': 0,
-  'overdue': 0,
-  'today': 0,
-  'favorites': 0,
-  'repeating': 0,
-  'tags': 0,
-  'archive': 0,
-};
-
 const tagsTemplates = [
   `homework`,
   `theory`,
@@ -43,17 +33,9 @@ const generateTags = (tags) => {
     .slice(0, 3);
 };
 
-const generateRepeatingDays = () => {
-  return Object.assign({}, defaultRepeatingDays, {
-    'mo': Math.random() > 0.5,
-    'tu': Math.random() > 0.5,
-    'we': Math.random() > 0.5,
-    'th': Math.random() > 0.5,
-    'fr': Math.random() > 0.5,
-    'sa': Math.random() > 0.5,
-    'su': Math.random() > 0.5,
-  });
-};
+const generateRepeatingDays = () =>
+  Object.keys(defaultRepeatingDays).reduce((accum, currentValue) =>
+    Object.assign(accum, {[currentValue]: Math.random() > 0.5}), {});
 
 const generateTask = () => {
   const dueDate = Math.random() > 0.5 ? null : getRandomDate();
@@ -77,16 +59,4 @@ const generateTasks = (count) => {
 
 const tasksData = generateTasks(TASKS_COUNT);
 
-const filtersData = tasksData.reduce(function (prevData, item) {
-  prevData.all = tasksData.length;
-  prevData.overdue += item.dueDate < Date.now() ? 1 : 0;
-  prevData.today += new Date(item.dueDate).getTime() === new Date(Date.now()).getTime() ? 1 : 0;
-  prevData.repeating += Object.values(item.repeatingDays).some(Boolean);
-  prevData.tags += item.tags.size ? 1 : 0;
-  prevData.favorites += item.isFavorite ? 1 : 0;
-  prevData.archive += item.isArchive ? 1 : 0;
-
-  return prevData;
-}, defaultFiltersData);
-
-export {generateTask, tasksData, filtersData};
+export {generateTask, tasksData};
