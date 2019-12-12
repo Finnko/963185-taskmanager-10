@@ -1,5 +1,5 @@
 import {colorsMockData, daysMockData, monthNames} from '../const.js';
-import {formatTime} from '../utils.js';
+import {formatTime, createElement} from '../utils.js';
 
 const createColorsMarkup = (colors, currentColor) => {
   return colors
@@ -70,7 +70,7 @@ const createHashtags = (tags) => {
     .join(`\n`);
 };
 
-const createEditTaskTemplate = (task) => {
+const createTaskFormTemplate = (task) => {
   const {description, tags, dueDate, color, repeatingDays} = task;
 
   const isExpired = dueDate instanceof Date && dueDate < Date.now();
@@ -173,4 +173,25 @@ const createEditTaskTemplate = (task) => {
   );
 };
 
-export {createEditTaskTemplate};
+export default class TaskForm {
+  constructor(task) {
+    this._task = task;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createTaskFormTemplate(this._task);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
