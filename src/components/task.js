@@ -1,5 +1,5 @@
 import {monthNames} from '../const.js';
-import {formatTime} from '../utils.js';
+import {formatTime, createElement} from '../utils.js';
 
 const createHashtagsMarkup = (hashtags) => {
   return hashtags
@@ -30,8 +30,8 @@ const createTaskTemplate = (task) => {
   const deadlineClass = isExpired ? `card--deadline` : ``;
 
 
-  return (`
-    <article class="card card--${color} ${repeatClass} ${deadlineClass}">
+  return (
+    `<article class="card card--${color} ${repeatClass} ${deadlineClass}">
       <div class="card__form">
         <div class="card__inner">
           <div class="card__control">
@@ -75,8 +75,30 @@ const createTaskTemplate = (task) => {
           </div>
         </div>
       </div>
-    </article>
-  `);
+    </article>`
+  );
 };
 
-export {createTaskTemplate};
+export default class Task {
+  constructor(task) {
+    this._task = task;
+
+    this._element = null;
+  }
+
+  getTemplate() {
+    return createTaskTemplate(this._task);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = createElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
