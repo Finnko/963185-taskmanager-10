@@ -12,18 +12,41 @@ const SHOWING_TASKS_COUNT_ON_START = 8;
 const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
 
 const renderTask = (task) => {
-  const taskComponent = new TaskComponent(task);
+
   const taskFormComponent = new TaskFormComponent(task);
+
+  const onEscKeyDown = (evt) => {
+    const isEscKey = evt.key === `Escape` || evt.key === `Esc`;
+
+    if (isEscKey) {
+      replaceEditToTask();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
+  };
+
+  const replaceEditToTask = () => {
+    taskListElement.replaceChild(taskComponent.getElement(), taskFormComponent.getElement());
+  };
+
+  const replaceTaskToEdit = () => {
+    taskListElement.replaceChild(taskFormComponent.getElement(), taskComponent.getElement());
+  };
+
+  const taskComponent = new TaskComponent(task);
 
   const editButton = taskComponent.getElement().querySelector(`.card__btn--edit`);
   editButton.addEventListener(`click`, () => {
-    taskListElement.replaceChild(taskFormComponent.getElement(), taskComponent.getElement());
+    replaceTaskToEdit();
+    document.addEventListener(`keydown`, onEscKeyDown);
   });
+
 
   const editForm = taskFormComponent.getElement().querySelector(`form`);
   editForm.addEventListener(`submit`, () => {
     taskListElement.replaceChild(taskComponent.getElement(), taskFormComponent.getElement());
   });
+
+  editForm.addEventListener(`submit`, replaceEditToTask);
 
   renderComponent(taskListElement, taskComponent.getElement(), RenderPosition.BEFOREEND);
 };
