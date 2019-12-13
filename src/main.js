@@ -64,36 +64,38 @@ renderComponent(siteMainElement, new FilterComponent(filters).getElement(), Rend
 const boardComponent = new BoardComponent();
 renderComponent(siteMainElement, boardComponent.getElement(), RenderPosition.BEFOREEND);
 
-const isAllTasksArchived = tasksData.every((task) => task.isArchive);
+const checkAvailableTasks = () => {
+  const isAllTasksArchived = tasksData && tasksData.every((task) => task.isArchive);
 
-if (isAllTasksArchived) {
-  renderComponent(boardComponent.getElement(), new NoTasksComponent().getElement(), RenderPosition.BEFOREEND);
-} else {
-  renderComponent(boardComponent.getElement(), new TasksComponent().getElement(), RenderPosition.BEFOREEND);
-  renderComponent(boardComponent.getElement(), new SortComponent().getElement(), RenderPosition.BEFOREEND);
-  const taskListElement = boardComponent.getElement().querySelector(`.board__tasks`);
+  if (isAllTasksArchived) {
+    renderComponent(boardComponent.getElement(), new NoTasksComponent().getElement(), RenderPosition.BEFOREEND);
+  } else {
+    renderComponent(boardComponent.getElement(), new SortComponent().getElement(), RenderPosition.BEFOREEND);
+    renderComponent(boardComponent.getElement(), new TasksComponent().getElement(), RenderPosition.BEFOREEND);
+    const taskListElement = boardComponent.getElement().querySelector(`.board__tasks`);
 
-  let showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
-  tasksData.slice(0, showingTasksCount)
-    .forEach((task) => {
-      renderTask(taskListElement, task);
+    let showingTasksCount = SHOWING_TASKS_COUNT_ON_START;
+    tasksData.slice(0, showingTasksCount)
+      .forEach((task) => {
+        renderTask(taskListElement, task);
+      });
+
+    const loadMoreButtonComponent = new LoadMoreButtonComponent();
+    renderComponent(boardComponent.getElement(), loadMoreButtonComponent.getElement(), RenderPosition.BEFOREEND);
+
+    loadMoreButtonComponent.getElement().addEventListener(`click`, () => {
+      const prevTasksCount = showingTasksCount;
+      showingTasksCount = showingTasksCount + SHOWING_TASKS_COUNT_BY_BUTTON;
+
+      tasksData.slice(prevTasksCount, showingTasksCount)
+        .forEach((task) => renderTask(taskListElement, task));
+
+      if (showingTasksCount >= tasksData.length) {
+        loadMoreButtonComponent.getElement().remove();
+        loadMoreButtonComponent.removeElement();
+      }
     });
+  }
+};
 
-  const loadMoreButtonComponent = new LoadMoreButtonComponent();
-  renderComponent(boardComponent.getElement(), loadMoreButtonComponent.getElement(), RenderPosition.BEFOREEND);
-
-  loadMoreButtonComponent.getElement().addEventListener(`click`, () => {
-    const prevTasksCount = showingTasksCount;
-    showingTasksCount = showingTasksCount + SHOWING_TASKS_COUNT_BY_BUTTON;
-
-    tasksData.slice(prevTasksCount, showingTasksCount)
-      .forEach((task) => renderTask(taskListElement, task));
-
-    if (showingTasksCount >= tasksData.length) {
-      loadMoreButtonComponent.getElement().remove();
-      loadMoreButtonComponent.removeElement();
-    }
-  });
-}
-
-
+checkAvailableTasks();
