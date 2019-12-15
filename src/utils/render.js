@@ -3,13 +3,13 @@ const RenderPosition = {
   BEFOREEND: `beforeend`
 };
 
-const renderComponent = (container, element, place) => {
+const renderComponent = (container, component, place) => {
   switch (place) {
     case RenderPosition.AFTERBEGIN:
-      container.prepend(element);
+      container.prepend(component.getElement());
       break;
     case RenderPosition.BEFOREEND:
-      container.append(element);
+      container.append(component.getElement());
       break;
   }
 };

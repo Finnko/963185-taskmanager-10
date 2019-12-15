@@ -184,4 +184,9 @@ export default class TaskForm extends AbstractComponent {
   getTemplate() {
     return createTaskFormTemplate(this._task);
   }
+
+  setSubmitHandler(handler) {
+    this.getElement().querySelector(`form`)
+      .addEventListener(`submit`, handler);
+  }
 }
