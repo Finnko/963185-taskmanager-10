@@ -64,7 +64,7 @@ renderComponent(siteMainElement, new FilterComponent(filters).getElement(), Rend
 const boardComponent = new BoardComponent();
 renderComponent(siteMainElement, boardComponent.getElement(), RenderPosition.BEFOREEND);
 
-const checkAvailableTasks = () => {
+const renderMoreTasks = () => {
   const isAllTasksArchived = tasksData && tasksData.every((task) => task.isArchive);
 
   if (isAllTasksArchived) {
@@ -98,4 +98,4 @@ const checkAvailableTasks = () => {
   }
 };
 
-checkAvailableTasks();
+renderMoreTasks();
