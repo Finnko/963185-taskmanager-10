@@ -9,7 +9,7 @@ import MenuComponent from './components/menu';
 import NoTasksComponent from "./components/no-tasks";
 import {generateFilters} from "./mocks/filter";
 import {tasksData} from "./mocks/task";
-import {renderComponent, RenderPosition} from "./utils";
+import {renderComponent, RenderPosition} from "./utils/common";
 
 
 const SHOWING_TASKS_COUNT_ON_START = 8;

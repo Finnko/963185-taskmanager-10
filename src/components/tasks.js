@@ -1,4 +1,4 @@
-
+import AbstractComponent from "./abstract-component";
 
 const createTasksTemplate = () => {
   return (
@@ -7,7 +7,7 @@ const createTasksTemplate = () => {
 };
 
 
-export default class NoTasks {
+export default class Tasks extends AbstractComponent {
   getTemplate() {
     return createTasksTemplate();
   }
