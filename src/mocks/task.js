@@ -1,5 +1,5 @@
 import {colorsMockData} from "../const";
-import {getRandomArrayItem, getRandomDate} from "../utils";
+import {getRandomArrayItem, getRandomDate} from "../utils/common";
 
 const TASKS_COUNT = 25;
 
