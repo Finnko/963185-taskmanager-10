@@ -1,5 +1,5 @@
 import BoardComponent from './components/board';
-import BoardController from "./components/controllers/board";
+import BoardController from "./controllers/board";
 import FilterComponent from './components/filter';
 import MenuComponent from './components/menu';
 import {generateFilters} from "./mocks/filter";

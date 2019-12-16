@@ -1,10 +1,10 @@
-import {removeElement, renderComponent, RenderPosition, replaceComponent} from "../../utils/render";
-import TaskComponent from "../task";
-import TaskFormComponent from "../task-form";
-import TasksComponent from '../tasks';
-import NoTasksComponent from "../no-tasks";
-import SortComponent from '../sort';
-import LoadMoreButtonComponent from '../button-load-more';
+import {removeElement, renderComponent, RenderPosition, replaceComponent} from "../utils/render";
+import TaskComponent from "../components/task";
+import TaskFormComponent from "../components/task-form";
+import TasksComponent from '../components/tasks';
+import NoTasksComponent from "../components/no-tasks";
+import SortComponent from '../components/sort';
+import LoadMoreButtonComponent from '../components/button-load-more';
 
 const SHOWING_TASKS_COUNT_ON_START = 8;
 const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
