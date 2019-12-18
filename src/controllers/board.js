@@ -100,10 +100,10 @@ export default class BoardController {
 
       switch (sortType) {
         case SortType.DATE_UP:
-          sortedTasks = tasks.slice().sort((a, b) => a.dueDate - b.dueDate);
+          sortedTasks = tasks.slice(0, showingTasksCount).sort((a, b) => a.dueDate - b.dueDate);
           break;
         case SortType.DATE_DOWN:
-          sortedTasks = tasks.slice().sort((a, b) => b.dueDate - a.dueDate);
+          sortedTasks = tasks.slice(0, showingTasksCount).sort((a, b) => b.dueDate - a.dueDate);
           break;
         case SortType.DEFAULT:
           sortedTasks = tasks.slice(0, showingTasksCount);
@@ -113,12 +113,6 @@ export default class BoardController {
       taskListElement.innerHTML = ``;
 
       renderTasks(taskListElement, sortedTasks);
-
-      if (sortType === SortType.DEFAULT) {
-        renderLoadMoreButton();
-      } else {
-        removeElement(this._loadMoreButtonComponent);
-      }
     });
   }
 }
