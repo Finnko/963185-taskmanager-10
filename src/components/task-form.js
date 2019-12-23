@@ -1,6 +1,6 @@
+import AbstractSmartComponent from "./abstract-smart-component";
 import {colorsMockData, daysMockData, monthNames} from '../const.js';
 import {formatTime} from '../utils/common.js';
-import AbstractSmartComponent from "./abstract-smart-component";
 
 const isRepeating = (repeatingDays) => {
   return Object.values(repeatingDays).some(Boolean);
@@ -214,6 +214,16 @@ export default class TaskForm extends AbstractSmartComponent {
 
   rerender() {
     super.rerender();
+  }
+
+  reset() {
+    const task = this._task;
+
+    this._isDateShowing = !!task.dueDate;
+    this._isRepeatingTask = Object.values(task.repeatingDays).some(Boolean);
+    this._activeRepeatingDays = Object.assign({}, task.repeatingDays);
+
+    this.rerender();
   }
 
   _subscribeOnEvents() {

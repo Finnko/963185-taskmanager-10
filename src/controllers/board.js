@@ -1,9 +1,9 @@
-import {removeElement, renderComponent, RenderPosition} from "../utils/render";
 import TasksComponent from '../components/tasks';
 import NoTasksComponent from "../components/no-tasks";
 import SortComponent, {SortType} from '../components/sort';
 import LoadMoreButtonComponent from '../components/button-load-more';
 import TaskController from "./task";
+import {removeElement, renderComponent, RenderPosition} from "../utils/render";
 
 const SHOWING_TASKS_COUNT_ON_START = 8;
 const SHOWING_TASKS_COUNT_BY_BUTTON = 8;
@@ -89,7 +89,7 @@ export default class BoardController {
     }
 
     this._tasks = [].concat(this._tasks.slice(0, index), newData, this._tasks.slice(index + 1));
-    taskController.render();
+    taskController.render(this._tasks[index]);
   }
 
   _onViewChange() {
