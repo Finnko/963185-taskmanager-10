@@ -2,7 +2,7 @@ import BoardComponent from './components/board';
 import BoardController from "./controllers/board";
 import FilterComponent from './components/filter';
 import MenuComponent from './components/menu';
-import TaskModel from './models/task';
+import TasksModel from './models/task';
 import {generateFilters} from "./mocks/filter";
 import {tasksData} from "./mocks/task";
 import {renderComponent, RenderPosition} from "./utils/render";
@@ -17,8 +17,8 @@ renderComponent(siteMainElement, new FilterComponent(filters), RenderPosition.BE
 const boardComponent = new BoardComponent();
 renderComponent(siteMainElement, boardComponent, RenderPosition.BEFOREEND);
 
-const taskModel = new TaskModel();
-taskModel.setTasks(tasksData);
+const tasksModel = new TasksModel();
+tasksModel.setTasks(tasksData);
 
-const boardController = new BoardController(boardComponent);
-boardController.render(tasksData);
+const boardController = new BoardController(boardComponent, tasksModel);
+boardController.render();
