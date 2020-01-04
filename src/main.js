@@ -17,5 +17,4 @@ const boardComponent = new BoardComponent();
 renderComponent(siteMainElement, boardComponent, RenderPosition.BEFOREEND);
 
 const boardController = new BoardController(boardComponent);
-
 boardController.render(tasksData);

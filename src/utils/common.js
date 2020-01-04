@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const getRandomInRange = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -19,17 +21,12 @@ const getRandomDate = () => {
   return targetDate;
 };
 
-const castTimeFormat = (value) => {
-  return value < 10 ? `0${value}` : String(value);
+const formatTime = (value) => {
+  return moment(value).format(`hh:mm A`);
 };
 
-const formatTime = (date) => {
-  const hours = castTimeFormat(date.getHours() % 12);
-  const minutes = castTimeFormat(date.getMinutes());
-
-  const interval = date.getHours() > 11 ? `pm` : `am`;
-
-  return `${hours}:${minutes} ${interval}`;
+const formatDate = (value) => {
+  return moment(value).format(`DD MMMM`);
 };
 
-export {getRandomInRange, getRandomArrayItem, getRandomDate, formatTime};
+export {getRandomInRange, getRandomArrayItem, getRandomDate, formatTime, formatDate};
