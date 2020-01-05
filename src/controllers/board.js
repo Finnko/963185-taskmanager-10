@@ -99,7 +99,7 @@ export default class BoardController {
 
   _onSortTypeChange(sortType) {
     let sortedTasks = [];
-    const tasks = this.tasksModel.getTasks();
+    const tasks = this._tasksModel.getTasks();
 
     switch (sortType) {
       case SortType.DATE_UP:
