@@ -299,10 +299,11 @@ export default class TaskForm extends AbstractSmartComponent {
       this._flatpickr = flatpickr(dateElement, {
         altInput: true,
         allowInput: true,
+        enableTime: true,
         defaultDate: this._task.dueDate,
         locale: {
-          firstDayOfWeek: 1
-        }
+          firstDayOfWeek: 1,
+        },
       });
     }
   }
