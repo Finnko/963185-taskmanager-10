@@ -1,7 +1,7 @@
 import BoardComponent from './components/board';
 import BoardController from "./controllers/board";
 import FilterController from './controllers/filter.js';
-import MenuComponent from './components/menu';
+import MenuComponent, {MenuItem} from './components/menu';
 import StatisticsComponent from './components/statistics.js';
 import TasksModel from './models/task';
 import {tasksData} from "./mocks/task";
@@ -12,13 +12,8 @@ const siteHeaderElement = siteMainElement.querySelector(`.control`);
 
 const menuComponent = new MenuComponent();
 const statisticsComponent = new StatisticsComponent();
-menuComponent.getElement().querySelector(`.control__label--new-task`)
-  .addEventListener(`click`, () => {
-    boardController.createTask();
-  });
 
 renderComponent(siteHeaderElement, menuComponent, RenderPosition.BEFOREEND);
-renderComponent(siteMainElement, statisticsComponent, RenderPosition.BEFOREEND);
 
 const tasksModel = new TasksModel();
 tasksModel.setTasks(tasksData);
@@ -28,6 +23,28 @@ filterController.render();
 
 const boardComponent = new BoardComponent();
 renderComponent(siteMainElement, boardComponent, RenderPosition.BEFOREEND);
+renderComponent(siteMainElement, statisticsComponent, RenderPosition.BEFOREEND);
 
 const boardController = new BoardController(boardComponent, tasksModel);
+
+statisticsComponent.hide();
 boardController.render();
+
+menuComponent.setOnChange((menuItem) => {
+  switch (menuItem) {
+    case MenuItem.NEW_TASK:
+      menuComponent.setActiveItem(MenuItem.TASKS);
+      statisticsComponent.hide();
+      boardController.show();
+      boardController.createTask();
+      break;
+    case MenuItem.STATISTICS:
+      boardController.hide();
+      statisticsComponent.show();
+      break;
+    case MenuItem.TASKS:
+      statisticsComponent.hide();
+      boardController.show();
+      break;
+  }
+});
