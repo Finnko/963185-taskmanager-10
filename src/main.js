@@ -2,6 +2,7 @@ import BoardComponent from './components/board';
 import BoardController from "./controllers/board";
 import FilterController from './controllers/filter.js';
 import MenuComponent from './components/menu';
+import StatisticsComponent from './components/statistics.js';
 import TasksModel from './models/task';
 import {tasksData} from "./mocks/task";
 import {renderComponent, RenderPosition} from "./utils/render";
@@ -10,12 +11,14 @@ const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.control`);
 
 const menuComponent = new MenuComponent();
+const statisticsComponent = new StatisticsComponent();
 menuComponent.getElement().querySelector(`.control__label--new-task`)
   .addEventListener(`click`, () => {
     boardController.createTask();
   });
 
 renderComponent(siteHeaderElement, menuComponent, RenderPosition.BEFOREEND);
+renderComponent(siteMainElement, statisticsComponent, RenderPosition.BEFOREEND);
 
 const tasksModel = new TasksModel();
 tasksModel.setTasks(tasksData);
