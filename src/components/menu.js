@@ -1,8 +1,8 @@
 import AbstractComponent from './abstract-component.js';
 
-const createMenuTemplate = () => {
-  return (`
-    <section class="control__btn-wrap">
+const createSiteMenuTemplate = () => {
+  return (
+    `<section class="control__btn-wrap">
       <input
         type="radio"
         name="control"
@@ -29,12 +29,12 @@ const createMenuTemplate = () => {
       <label for="control__statistic" class="control__label"
         >STATISTICS</label
       >
-    </section>
-  `);
+    </section>`
+  );
 };
 
-export default class SiteMenu extends AbstractComponent {
+export default class Menu extends AbstractComponent {
   getTemplate() {
-    return createMenuTemplate();
+    return createSiteMenuTemplate();
   }
 }

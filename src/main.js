@@ -8,7 +8,14 @@ import {renderComponent, RenderPosition} from "./utils/render";
 
 const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.control`);
-renderComponent(siteHeaderElement, new MenuComponent(), RenderPosition.BEFOREEND);
+
+const menuComponent = new MenuComponent();
+menuComponent.getElement().querySelector(`.control__label--new-task`)
+  .addEventListener(`click`, () => {
+    boardController.createTask();
+  });
+
+renderComponent(siteHeaderElement, menuComponent, RenderPosition.BEFOREEND);
 
 const tasksModel = new TasksModel();
 tasksModel.setTasks(tasksData);
@@ -18,8 +25,6 @@ filterController.render();
 
 const boardComponent = new BoardComponent();
 renderComponent(siteMainElement, boardComponent, RenderPosition.BEFOREEND);
-
-
 
 const boardController = new BoardController(boardComponent, tasksModel);
 boardController.render();
