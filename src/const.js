@@ -4,7 +4,7 @@ const COLOR = {
   BLUE: `blue`,
   GREEN: `green`,
   PINK: `pink`,
-}
+};
 
 const COLORS = [
   COLOR.BLACK,

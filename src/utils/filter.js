@@ -61,4 +61,4 @@ const getTasksByFilter = (tasks, filterType) => {
   return tasks;
 };
 
-export {getTasksByFilter, getTasksInOneDay, getTasksWithHashtags, getRepeatingTasks, getOverdueTasks, getNotArchiveTasks, getFavoriteTasks, getArchiveTasks}
+export {getTasksByFilter};

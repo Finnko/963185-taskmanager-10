@@ -29,7 +29,7 @@ export default class Tasks {
   }
 
   updateTask(id, task) {
-    const index = this._tasks.findIndex((it) => it.id === id);
+    const index = this._tasks.findIndex((item) => item.id === id);
 
     if (index === -1) {
       return false;
@@ -42,7 +42,7 @@ export default class Tasks {
   }
 
   removeTask(id) {
-    const index = this._tasks.findIndex((it) => it.id === id);
+    const index = this._tasks.findIndex((item) => item.id === id);
 
     if (index === -1) {
       return false;

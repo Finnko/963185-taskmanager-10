@@ -112,7 +112,9 @@ export default class BoardController {
         taskController.render(newData, TaskControllerMode.DEFAULT);
 
         const destroyedTask = this._showedTaskControllers.pop();
-        destroyedTask.destroy();
+        if (destroyedTask) {
+          destroyedTask.destroy();
+        }
 
         this._showedTaskControllers = [].concat(taskController, this._showedTaskControllers);
         this._showingTasksCount = this._showedTaskControllers.length;
@@ -124,7 +126,7 @@ export default class BoardController {
       const isSuccess = this._tasksModel.updateTask(oldData.id, newData);
 
       if (isSuccess) {
-        taskController.render(newData);
+        taskController.render(newData, TaskControllerMode.DEFAULT);
       }
     }
   }
@@ -151,6 +153,12 @@ export default class BoardController {
 
     this._removeTasks();
     this._renderTasks(sortedTasks);
+
+    if (sortType === SortType.DEFAULT) {
+      this._renderLoadMoreButton();
+    } else {
+      removeElement(this._loadMoreButtonComponent);
+    }
   }
 
   _onLoadMoreButtonClick() {
@@ -167,9 +175,6 @@ export default class BoardController {
   }
 
   _onFilterChange() {
-    this._removeTasks();
-    this._renderTasks(this._tasksModel.getTasks().slice(0, SHOWING_TASKS_COUNT_ON_START));
-    this._renderLoadMoreButton();
     this._updateTasks(SHOWING_TASKS_COUNT_ON_START);
   }
 }

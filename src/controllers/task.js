@@ -71,6 +71,7 @@ export default class TaskController {
       const data = this._taskFormComponent.getData();
       this._onDataChange(this, task, data);
     });
+
     this._taskFormComponent.setDeleteButtonClickHandler(() => this._onDataChange(this, task, null));
 
     switch (mode) {

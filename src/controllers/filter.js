@@ -39,12 +39,12 @@ export default class FilterController {
     }
   }
 
-  _onDataChange() {
-    this.render();
-  }
-
   _onFilterChange(filterType) {
     this._tasksModel.setFilter(filterType);
     this._activeFilterType = filterType;
+  }
+
+  _onDataChange() {
+    this.render();
   }
 }
