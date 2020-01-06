@@ -1,7 +1,7 @@
-import {colorsMockData} from "../const";
+import {COLORS} from "../const";
 import {getRandomArrayItem, getRandomDate} from "../utils/common";
 
-const TASKS_COUNT = 10;
+const TASKS_COUNT = 25;
 
 const descriptionItems = [
   `Изучить теорию`,
@@ -41,11 +41,12 @@ const generateTask = () => {
   const dueDate = Math.random() > 0.5 ? null : getRandomDate();
 
   return {
+    id: String(new Date() + Math.random()),
     description: getRandomArrayItem(descriptionItems),
     dueDate,
     repeatingDays: dueDate ? defaultRepeatingDays : generateRepeatingDays(),
     tags: new Set(generateTags(tagsTemplates)),
-    color: getRandomArrayItem(colorsMockData),
+    color: getRandomArrayItem(COLORS),
     isFavorite: Math.random() > 0.5,
     isArchive: Math.random() > 0.5,
   };
