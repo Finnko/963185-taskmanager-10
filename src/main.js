@@ -11,12 +11,19 @@ const siteMainElement = document.querySelector(`.main`);
 const siteHeaderElement = siteMainElement.querySelector(`.control`);
 
 const menuComponent = new MenuComponent();
-const statisticsComponent = new StatisticsComponent();
 
 renderComponent(siteHeaderElement, menuComponent, RenderPosition.BEFOREEND);
 
 const tasksModel = new TasksModel();
 tasksModel.setTasks(tasksData);
+
+const dateTo = new Date();
+const dateFrom = (() => {
+  const d = new Date(dateTo);
+  d.setDate(d.getDate() - 7);
+  return d;
+})();
+const statisticsComponent = new StatisticsComponent({tasks: tasksModel, dateFrom, dateTo});
 
 const filterController = new FilterController(siteMainElement, tasksModel);
 filterController.render();
