@@ -1,4 +1,18 @@
 import moment from "moment";
+import {COLOR} from "../const";
+
+const ColorValue = {
+  [COLOR.BLACK]: `#000000`,
+  [COLOR.BLUE]: `#0c5cdd`,
+  [COLOR.GREEN]: `#31b55c`,
+  [COLOR.PINK]: `#ff3cb9`,
+  [COLOR.YELLOW]: `#ffe125`,
+};
+
+const ChartTextColor = {
+  CHART_TEXT_COLOR: `#000000`,
+  CHART_TEXT_COLOR_INVERSE: `#ffffff`
+};
 
 const getUniqItems = (item, index, array) => {
   return array.indexOf(item) === index;
@@ -44,4 +58,5 @@ const calculateBetweenDates = (from, to) => {
   return result;
 };
 
-export {getTasksByDateRange, getUniqItems, calculateBetweenDates, createPlaceholder, createRandomColor, calcUniqCountColor};
+export {getTasksByDateRange, getUniqItems, calculateBetweenDates, createPlaceholder,
+  createRandomColor, calcUniqCountColor, ColorValue, ChartTextColor};
