@@ -52,7 +52,7 @@ export default class BoardController {
   render() {
     const container = this._container.getElement();
     const tasks = this._tasksModel.getTasks();
-    const isAllTasksArchived = tasks && tasks.every((task) => task.isArchive);
+    const isAllTasksArchived = tasks.every((task) => task.isArchive);
 
     if (isAllTasksArchived) {
       renderComponent(container, this._noTasksComponent, RenderPosition.BEFOREEND);
@@ -119,8 +119,8 @@ export default class BoardController {
         this._tasksModel.addTask(newData);
         taskController.render(newData, TaskControllerMode.DEFAULT);
 
-        const destroyedTask = this._showedTaskControllers.pop();
-        if (destroyedTask) {
+        if (this._showedTaskControllers.length > this._showingTasksCount) {
+          const destroyedTask = this._showedTaskControllers.pop();
           destroyedTask.destroy();
         }
 
@@ -135,6 +135,7 @@ export default class BoardController {
 
       if (isSuccess) {
         taskController.render(newData, TaskControllerMode.DEFAULT);
+        this._updateTasks(this._showingTasksCount);
       }
     }
   }
