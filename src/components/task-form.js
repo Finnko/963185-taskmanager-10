@@ -1,4 +1,4 @@
-import AbstractSmartComponent from "./abstract-smart-component";
+import AbstractSmartComponent from './abstract-smart-component';
 import {COLORS, daysMockData} from '../const.js';
 import {formatTime, formatDate, isRepeating, isOverdueDate} from '../utils/common.js';
 import flatpickr from 'flatpickr';
