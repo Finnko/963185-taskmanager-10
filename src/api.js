@@ -31,6 +31,14 @@ export default class API {
   }
 
   updateTask(id, data) {
+    return this._load({
+      url: `tasks/${id}`,
+      method: Method.PUT,
+      body: JSON.stringify(data.toRAW()),
+      headers: new Headers({'Content-Type': `application/json`})
+    })
+      .then((response) => response.json())
+      .then(Task.parseTask);
   }
 
   deleteTask(id) {

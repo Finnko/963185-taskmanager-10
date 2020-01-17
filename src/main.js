@@ -1,21 +1,14 @@
+import API from './api.js';
 import BoardComponent from './components/board';
 import BoardController from "./controllers/board";
 import FilterController from './controllers/filter.js';
 import MenuComponent, {MenuItem} from './components/menu';
 import StatisticsComponent from './components/statistics.js';
-import TasksModel from './models/task';
-import {tasksData} from "./mocks/task";
+import TasksModel from './models/tasks';
 import {renderComponent, RenderPosition} from "./utils/render";
 
-const siteMainElement = document.querySelector(`.main`);
-const siteHeaderElement = siteMainElement.querySelector(`.control`);
-
-const menuComponent = new MenuComponent();
-
-renderComponent(siteHeaderElement, menuComponent, RenderPosition.BEFOREEND);
-
-const tasksModel = new TasksModel();
-tasksModel.setTasks(tasksData);
+const AUTHORIZATION = `Basic dXNlckdfreNzd29yZAo=`;
+const END_POINT = `https://htmlacademy-es-10.appspot.com/task-manager`;
 
 const dateTo = new Date();
 const dateFrom = (() => {
@@ -23,19 +16,25 @@ const dateFrom = (() => {
   d.setDate(d.getDate() - 7);
   return d;
 })();
+
+const api = new API(END_POINT, AUTHORIZATION);
+const tasksModel = new TasksModel();
+
+const siteMainElement = document.querySelector(`.main`);
+const siteHeaderElement = siteMainElement.querySelector(`.control`);
+
+const menuComponent = new MenuComponent();
 const statisticsComponent = new StatisticsComponent({tasks: tasksModel, dateFrom, dateTo});
 
-const filterController = new FilterController(siteMainElement, tasksModel);
-filterController.render();
-
 const boardComponent = new BoardComponent();
+const boardController = new BoardController(boardComponent, tasksModel, api);
+const filterController = new FilterController(siteMainElement, tasksModel);
+
+renderComponent(siteHeaderElement, menuComponent, RenderPosition.BEFOREEND);
+filterController.render();
 renderComponent(siteMainElement, boardComponent, RenderPosition.BEFOREEND);
 renderComponent(siteMainElement, statisticsComponent, RenderPosition.BEFOREEND);
-
-const boardController = new BoardController(boardComponent, tasksModel);
-
 statisticsComponent.hide();
-boardController.render();
 
 menuComponent.setOnChange((menuItem) => {
   switch (menuItem) {
@@ -55,3 +54,9 @@ menuComponent.setOnChange((menuItem) => {
       break;
   }
 });
+
+api.getTasks()
+  .then((tasks) => {
+    tasksModel.setTasks(tasks);
+    boardController.render();
+  });
