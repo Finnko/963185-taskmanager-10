@@ -1,7 +1,7 @@
 import {colorsMockData} from "../const";
 import {getRandomArrayItem, getRandomDate} from "../utils/common";
 
-const TASKS_COUNT = 25;
+const TASKS_COUNT = 10;
 
 const descriptionItems = [
   `Изучить теорию`,
