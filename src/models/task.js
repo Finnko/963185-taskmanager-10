@@ -28,6 +28,8 @@ export default class Task {
   }
 
   static parseTasks(data) {
+    console.log(data);
+
     return data.map(Task.parseTask);
   }
 
